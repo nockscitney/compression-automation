@@ -7,17 +7,17 @@
 
 
 ## EDITABLE REGION ##
-
 ## Variables which are safe to edit reside there
 
 # This variable will be used to hold the file extension we're currently working on
-$fileExt = ".txt"
-
-# Here you'll need to set the base location of your video folder
-Set-Location "C:\Users\Nick\Desktop\Powershell"
+$fileExt = ".txt" 
+# This variable will tell the script where the base folder is and should be where all the files you want to process reside when you run the script
+$location = "C:\Users\Nick\Desktop\Powershell"
 
 ## END EDITABLE REGION ##
 
+# Here you'll need to set the base location of your video folder
+Set-Location $location
 
 # This will hold an array of files, which match the extension you're looking to match. In this case, I'm looking only for text files, however the 
 $folderFiles = Get-ChildItem -Filter *$fileExt
