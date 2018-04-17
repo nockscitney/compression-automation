@@ -6,7 +6,15 @@ As an content creator for YouTube, I'm always looking for ways to automate my ta
 
 This is my first GH repo, and I've been using the MVA course "GITHUB for Windows Users" (https://mva.microsoft.com/en-US/training-courses/github-for-windows-users-16749)
 
-USAGE
+# NAMING CONVENTION
+
+This script is based on a naming convention I use when preparing my videos for compression
+
+_Single Files_ - This is when the video you want to compress is in a single part. The naming convention used for these is <number>.<filename>.<extension> where <number> = the order the video was recorded in, <filename> is the name of the video and <extension> is the file type of the video
+  
+_Multiple Files_ - This is when the video you want to compess is in multple parts and needs to be joined together before compression. The naming convention used for these is <number>.<filename>_<partNumber>.<extension> where <number> = the order the video was recorded in, <filename> is the name of the video, <partNumber> defines the order the clips should be joined and <extension> is the file type of the video 
+
+# USAGE
 
 There are currently 2 variables which need to be set when using this script. You'll find these between a commented block titled "EDITABLE REGION" at the start of the script
 
