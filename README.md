@@ -6,6 +6,10 @@ As an content creator for YouTube, I'm always looking for ways to automate my ta
 
 This is my first GH repo, and I've been using the MVA course "GITHUB for Windows Users" (https://mva.microsoft.com/en-US/training-courses/github-for-windows-users-16749)
 
+## Prerequisition
+
+The script joins and compresses the videos with the help of ffmpeg. For more information please see https://www.ffmpeg.org/
+
 ## NAMING CONVENTION
 
 This script is based on a naming convention I use when preparing my videos for compression
@@ -20,8 +24,12 @@ There are currently 2 variables which need to be set when using this script. You
 
 **_$fileExt_** - This is the file type you want the script to target
 
-**_$location_** - This is the base folder where you'll put all of the files you want the script to process
-
 **_$ffmpegLocation_** - This is the physical path to ffmpeg.exe
 
-**_$joinCommand_** - This is the arguments I use to join my clips together. This will also uses the **_$location_** {0} and **_$fileExt_** {2} as part of the variable.  {1} refers to the name of the folder/file
+**_$location_** - This is the base folder where you'll put all of the files you want the script to process
+
+**_$finishedLocation_** - This is the folder where you want your final compressed videos to be moved to
+
+**_$joinCommand_** - This is the arguments I use to join my clips together. My command uses the **_$location_** {0} and **_$fileExt_** {2} as part of the variable.  {1} refers to the name of the folder/file. For more information and different options, please refer to https://www.ffmpeg.org/
+
+**_compressCommand_** - This is the arguments I use to compress my video clips before uploading. My command uses the **_$location_** {0}, **_finishedLocation_** {3} and **_$fileExt_** {2} as part of the variable.  {1} refers to the name of the folder/file. For more information and different options, please refer to https://www.ffmpeg.org/
