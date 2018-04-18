@@ -21,3 +21,7 @@ There are currently 2 variables which need to be set when using this script. You
 **_$fileExt_** - This is the file type you want the script to target
 
 **_$location_** - This is the base folder where you'll put all of the files you want the script to process
+
+**_$ffmpegLocation_** - This is the physical path to ffmpeg.exe
+
+**_$joinCommand_** - This is the arguments I use to join my clips together. This will also uses the **_$location_** {0} and **_$fileExt_** {2} as part of the variable.  {1} refers to the name of the folder/file
