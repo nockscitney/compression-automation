@@ -22,6 +22,8 @@ This script is based on a naming convention I use when preparing my videos for c
 
 There are currently 2 variables which need to be set when using this script. You'll find these between a commented block titled "EDITABLE REGION" at the start of the script
 
+**_$runCleanup_** - Tells the script whether or not to delete the source files once the video is compressed
+
 **_$fileExt_** - This is the file type you want the script to target
 
 **_$ffmpegLocation_** - This is the physical path to ffmpeg.exe
