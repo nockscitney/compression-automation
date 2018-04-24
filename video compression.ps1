@@ -1,7 +1,7 @@
 ## VIDEO COMPRESION AUTOMATION SCRIPT ##
 ##
-## Version:            1.3
-## Last Update:        2018-04-18
+## Version:            1.3.1
+## Last Update:        2018-04-24
 ## Last Updated By:    Nick Scotney
 ## Git Hub URL:        https://github.com/nockscitney/compression-automation
 ## Branch Name:        video-compression
@@ -9,6 +9,9 @@
 
 ## EDITABLE REGION ##
 ## Variables which are safe to edit reside there
+
+# Tells the script whether or not to tidy up the original files (move them to the bin) once the compression has completed
+$runCleanup = 0
 
 # This variable will be used to hold the file extension we're currently working on
 $fileExt = ".mkv" 
@@ -18,7 +21,6 @@ $ffmpegLocation = "<<PATH TO FFMPEG>>"
 
 # This variable will tell the script where the base folder is and should be where all the files you want to process reside when you run the script
 $location = "<<PATH TO BASE LOCATION>>"
-# This variable will tell the script where move the files to once they have been compressed
 $finishedLocation = "<<PATH TO FINAL LOCATION>>"
 
 # This variable is the settings for joining multiple clips together into a single video. This uses the $ffmpegLocation variable to know where the program is when running the join
@@ -100,4 +102,13 @@ foreach($folder in $workingList)
 
     # Start ffmpeg joining the files together
     Start-Process $ffmpegLocation -ArgumentList $argumentList -Wait
+
+    # Here we'll check to see if we need to run the clean-up
+    if($runCleanup -eq 1)
+    {
+        # Change the folder location here, else PS will thrown an error saying the folder is in use
+        Set-Location $location
+        # Delete the folder and all it's child items. Items are only moved to the recycle bin, so can always be recovered at a later date
+        Remove-Item -Path $location\$folder -Recurse
+    }
 } 
