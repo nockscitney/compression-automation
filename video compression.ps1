@@ -1,27 +1,35 @@
 ## VIDEO COMPRESION AUTOMATION SCRIPT ##
 ##
-## Version:            1.1
-## Last Update:        2018-04-17
+## Version:            1.3.1
+## Last Update:        2018-04-24
 ## Last Updated By:    Nick Scotney
 ## Git Hub URL:        https://github.com/nockscitney/compression-automation
-## Branch Name:        video-joining
+## Branch Name:        video-compression
 
 
 ## EDITABLE REGION ##
 ## Variables which are safe to edit reside there
 
+# Tells the script whether or not to tidy up the original files (move them to the bin) once the compression has completed
+$runCleanup = 0
+
 # This variable will be used to hold the file extension we're currently working on
 $fileExt = ".mkv" 
 
 # This is the path to your command line ffmpef
-$ffmpegLocation = "F:\Recordings\ffmpeg\bin\ffmpeg.exe"
+$ffmpegLocation = "<<PATH TO FFMPEG>>"
 
 # This variable will tell the script where the base folder is and should be where all the files you want to process reside when you run the script
-$location = "C:\Users\Nick\Desktop\Powershell"
+$location = "<<PATH TO BASE LOCATION>>"
+$finishedLocation = "<<PATH TO FINAL LOCATION>>"
 
 # This variable is the settings for joining multiple clips together into a single video. This uses the $ffmpegLocation variable to know where the program is when running the join
 # The joined video will then be saved in the current working folder, which is set later in the script
 $joinCommand = "-f concat -safe 0 -i {0}\{1}\fileList.txt -c copy {0}\{1}\{1}{2}"
+
+# This variable is the setting which will compress the clips. This uses the $ffmpegLocation variable to know where the program is when running the compress. Once compressed, the video
+# will then be saved in the current working directory
+$compressCommand = "-i {0}\{1}\{1}{2} -c:v libx265 -preset ultrafast -crf 15 -c:a copy {3}\{1}_compressed{2}"
 
 ## END EDITABLE REGION ##
 
@@ -85,4 +93,22 @@ foreach($folder in $workingList)
         # Start ffmpeg joining the files together
         Start-Process $ffmpegLocation -ArgumentList $argumentList -Wait
     }    
+    
+    # Now we can compress the video itself
+    $argumentList = $compressCommand -f $location, $folder, $fileExt, $finishedLocation
+        
+    # Write this out to the screen to be sure it's right
+    Write-Host -ForegroundColor Green -Object $argumentList
+
+    # Start ffmpeg joining the files together
+    Start-Process $ffmpegLocation -ArgumentList $argumentList -Wait
+
+    # Here we'll check to see if we need to run the clean-up
+    if($runCleanup -eq 1)
+    {
+        # Change the folder location here, else PS will thrown an error saying the folder is in use
+        Set-Location $location
+        # Delete the folder and all it's child items. Items are only moved to the recycle bin, so can always be recovered at a later date
+        Remove-Item -Path $location\$folder -Recurse
+    }
 } 
